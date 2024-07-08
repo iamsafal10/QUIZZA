@@ -6,17 +6,18 @@ import Confetti from "react-confetti"
 
 export default function Page3(props){
 
+    //state to check if score is out of
     const [win,setwin]=React.useState(false)
     if(props.score===10)
         setwin(true)
-    //functon to restart game
+
+    //function to call restart function of App component which restarts the game
     function restart()
     {
         props.restart()
     }
-    React.useEffect(()=>{
-        // console.log(props.cans)
-    },[])
+
+    //an array storing info about a question (correct ans , incorrect ans , etc.)
     const ques=[]
     React.useEffect(()=>{})
     for(let i=0;i<(props.fques).length;i++)
@@ -31,7 +32,6 @@ export default function Page3(props){
                 }
             )
         }
-        // console.log(ques)
         const arr = ques.map((e) =>{
              return(
                <P3Ques

@@ -5,17 +5,18 @@ import Page3 from "./Page3";
 export default function App() {
   //state and function to store submitted answers
   const [sans, set_sans] = React.useState([]);
-
-  //score state
-  const [score, setscore] = React.useState(0);
-  function update_score() {
-    setscore((prev) => prev + 1);
-  }
   function store_sans(e) {
     set_sans((prev) => {
       return [...prev, e];
     });
   }
+
+  //state and function to store score
+  const [score, setscore] = React.useState(0);
+  function update_score() {
+    setscore((prev) => prev + 1);
+  }
+  
   // state and function to store options
   const [choices, set_choices] = React.useState([]);
   function store_choices(e)
@@ -35,6 +36,7 @@ export default function App() {
       return [...prev, e];
     });
   }
+
   //state and function to store all incorrect answers
   const [icans, set_icans] = React.useState([]);
 
@@ -44,10 +46,8 @@ export default function App() {
     });
   }
 
-  //state to store all the answers of user
 
   //state and function to store all correct answers
-
   const [cans, set_cans] = React.useState([]);
 
   function store_cans(e) {
@@ -55,10 +55,10 @@ export default function App() {
       return [...prev, e];
     });
   }
+
+  // Function to restart the quiz on clicking on play again
   function restart() {
-    setFirst(true);
-    setStartQuiz(false);
-    setCheckAnswers(false);
+    window.location.reload();
   }
 
   //states to display diff pages
@@ -67,11 +67,13 @@ export default function App() {
   const [checkAnswers, setCheckAnswers] = React.useState(false);
   const [playAgain, setPlayAgain] = React.useState(false);
 
+  //function on clicking start quiz at page 1 
   function start_quiz() {
     setStartQuiz(true);
     setFirst(false);
-    // console.log("func gets logged");
   }
+
+  //function on clicking check ans at page 2  
   function check_ans() {
     setFirst(false);
     setStartQuiz(false);

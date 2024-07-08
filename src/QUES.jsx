@@ -5,6 +5,7 @@ import Ans from "./ANS"
 export default function Ques(props) {
   const [options, setOptions] = React.useState([]);
 
+  //function to shuffle options after all options are combined
   function shuffle(array) {
     let currentIndex = array.length;
     while (currentIndex !== 0) {
@@ -19,20 +20,19 @@ export default function Ques(props) {
     props.store_choices(array)
   }
 
+// to store shuffled options
   React.useEffect(() => {
     // Create a copy of the options array before shuffling
     const shuffledOptions = [...props.incorrect_answers, props.correct_answer];
     // console.log(shuffledOptions)
     shuffle(shuffledOptions);
     setOptions(shuffledOptions);
-   
-    // console.log(options)
   }, [props.incorrect_answers, props.correct_answer]);
 
   const cans = [];
   cans.push(props.correct_answer);
 
-  //checking wwhich button is selected by id
+  //checking which button is selected by id
 const [selectedbtn,setselectedbtn]=React.useState(null)
 
   const [id1, setid1] = React.useState("false");
@@ -71,7 +71,6 @@ const [selectedbtn,setselectedbtn]=React.useState(null)
         </button>
       </div>
       <div className="line"></div>
-      {/* <Ans value={score}/> */}
     </div>
   );
 }

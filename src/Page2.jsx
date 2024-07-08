@@ -6,11 +6,13 @@ import Ans from "./ANS";
 
 export default function Page2(props) {
 
+  //state to check loading or loaded
   const [loading, setLoading] =React.useState(true);
   
   //state that stores all the rendered QUES components
   const [array, setArray] = React.useState([]);
   console.log(props.cans)
+
   //fetch api for questions
   React.useEffect(() => {
     async function getData() {
@@ -30,7 +32,6 @@ export default function Page2(props) {
          props.store_fques(e.question)
          props.store_cans(e.correct_answer)
          props.store_icans(e.incorrect_answers)
-        //  props.store_cansid(e.)
           return(
             <Ques
               // key={nanoId()}
@@ -54,7 +55,6 @@ export default function Page2(props) {
     getData();
   }, []);
 
-  //returning on page
   return (
     <div className="page2">
       {loading?(<div className="loading"><img className="img" src="Hourglass.gif" alt="loading gif"/>
