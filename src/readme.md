@@ -1,13 +1,15 @@
 #
 ek readme banani hai
 #
-comments daalne hain abt all functions and state 
+order of submission randomise karna hai toh anss shi nhi aa rha 
 #
-order of submission randomise karna hai 
+cant  leave question
 #
-phone mein gadbad , responsiveness nhi hai
+phone mein gadbad, responsiveness nhi hai
 #
 adding keys
+#
+multiple options par click kar dene se all are gettin added to the array
 
 
 

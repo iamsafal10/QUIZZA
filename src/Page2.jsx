@@ -11,7 +11,7 @@ export default function Page2(props) {
   
   //state that stores all the rendered QUES components
   const [array, setArray] = React.useState([]);
-  console.log(props.cans)
+  // console.log(props.cans)
 
   //fetch api for questions
   React.useEffect(() => {
@@ -32,6 +32,7 @@ export default function Page2(props) {
          props.store_fques(e.question)
          props.store_cans(e.correct_answer)
          props.store_icans(e.incorrect_answers)
+        //  props.store_pair(e.question,"")
           return(
             <Ques
               // key={nanoId()}
@@ -39,8 +40,8 @@ export default function Page2(props) {
               question={e.question}
               incorrect_answers={e.incorrect_answers}
               correct_answer={e.correct_answer}
-              store_sans={props.store_sans}
-              sans={props.sans}
+              store_pair={props.store_pair}
+              pair={props.pair}
               choices={props.choices}
               store_choices={props.store_choices}
             />
@@ -51,19 +52,24 @@ export default function Page2(props) {
         console.error(error.message);
       }
     }
-    
     getData();
   }, []);
 
   return (
     <div className="page2">
-      {loading?(<div className="loading"><img className="img" src="Hourglass.gif" alt="loading gif"/>
-      <div className="written">LOADING...</div></div>):
+      {
+      loading?
+
+      (<div className="loading"><img className="img" src="Hourglass.gif" alt="loading gif"/>
+      <div className="written">LOADING...</div></div>)
+      :
       (<div className="unloading"><div className="questions">{array}</div>
       <div className="check_button"><button onClick={props.check_ans} className="check_answers">
         Check Answers
       </button></div>
-      </div>)}
+      </div>)
+      
+      }
     </div>
   );
 }

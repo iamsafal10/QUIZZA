@@ -4,10 +4,14 @@ import Page2 from "./Page2";
 import Page3 from "./Page3";
 export default function App() {
   //state and function to store submitted answers
-  const [sans, set_sans] = React.useState([]);
-  function store_sans(e) {
-    set_sans((prev) => {
-      return [...prev, e];
+  const [pair, set_pair] = React.useState([]);
+  function store_pair(e,sans) {
+    set_pair((prev) => {
+      return [...prev,
+         {
+          question:e,
+          sans:sans
+        }];
     });
   }
 
@@ -17,7 +21,7 @@ export default function App() {
     setscore((prev) => prev + 1);
   }
   
-  // state and function to store options
+  // state and function to store all options
   const [choices, set_choices] = React.useState([]);
   function store_choices(e)
   {
@@ -45,7 +49,6 @@ export default function App() {
       return [...prev, e];
     });
   }
-
 
   //state and function to store all correct answers
   const [cans, set_cans] = React.useState([]);
@@ -94,8 +97,8 @@ export default function App() {
           icans={icans}
           store_icans={store_icans}
           cans={cans}
-          store_sans={store_sans}
-          sans={sans}
+          store_pair={store_pair}
+          pair={pair}
           choices={choices}
           store_choices={store_choices}
         />
@@ -104,7 +107,7 @@ export default function App() {
       {checkAnswers && (
         <Page3
           score={score}
-          sans={sans}
+          pair={pair}
           fques={fques}
           cans={cans}
           icans={icans}

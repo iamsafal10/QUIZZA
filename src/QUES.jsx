@@ -16,7 +16,7 @@ export default function Ques(props) {
         array[currentIndex],
       ];
     }
-    console.log(array)
+    // console.log(array)
     props.store_choices(array)
   }
 
@@ -24,7 +24,6 @@ export default function Ques(props) {
   React.useEffect(() => {
     // Create a copy of the options array before shuffling
     const shuffledOptions = [...props.incorrect_answers, props.correct_answer];
-    // console.log(shuffledOptions)
     shuffle(shuffledOptions);
     setOptions(shuffledOptions);
   }, [props.incorrect_answers, props.correct_answer]);
@@ -44,7 +43,12 @@ const [selectedbtn,setselectedbtn]=React.useState(null)
     const { id, value } = event.target;
 
     // storing submitted answer
-    props.store_sans(value)
+    const ques=decode(props.question)
+    props.store_pair(ques,value)
+    // for(let i=0;i<2;i++)
+    // {
+    //   console.log((props.pair))
+    // }
 
     if (value === cans[0]) {
      props.update_score()

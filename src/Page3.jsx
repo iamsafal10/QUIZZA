@@ -5,7 +5,7 @@ import P3Ques from "./P3QUES.jsx"
 import Confetti from "react-confetti"
 
 export default function Page3(props){
-
+    //
     //state to check if score is out of
     const [win,setwin]=React.useState(false)
     if(props.score===10)
@@ -27,10 +27,10 @@ export default function Page3(props){
                     incorrect_answers:props.icans[i],
                     correct_answer:props.cans[i],
                     question:props.fques[i],
-                    sans:props.sans[i],
                     choices:props.choices[i]
                 }
             )
+            // console.log(props.sans[i])
         }
         const arr = ques.map((e) =>{
              return(
@@ -38,7 +38,7 @@ export default function Page3(props){
                  question={e.question}
                  incorrect_answers={e.incorrect_answers}
                  correct_answer={e.correct_answer}
-                 submitted_answer={e.sans}
+                 pair={props.pair}
                  choices={e.choices}
                />
              )

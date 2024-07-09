@@ -5,25 +5,66 @@ export default function P3Ques(props) {
   const [options, setOptions] = useState([]);
   const [correctBtn, setCorrectBtn] = useState(null);
   const [submittedBtn, setSubmittedBtn] = useState(null);
-
+ 
   useEffect(() => {
     setOptions(props.choices);
+   
   }, [props.choices]);
 
+  useEffect(()=>{
+    console.log(props.question)
+    console.log(props.incorrect_answers)
+    console.log(props.correct_answer)
+    console.log(props.choices)
+
+  },[])
   useEffect(() => {
-    for (let i = 0; i < options.length; i++) {
-      if (options[i] === props.correct_answer) {
-        setCorrectBtn((i + 1).toString());
-      }
+    for (let i = 0; i < (props.pair).length; i++) {
+      const ques=(props.pair)[i].question;
+      const sans=(props.pair)[i].sans;
+      // console.log(ques)
+      if(ques==props.question)
+        {
+          for(let j=0;j<options.length;j++)
+          {
+            if (options[j] === props.correct_answer && (sans!="")) 
+              {
+                setCorrectBtn((j + 1).toString());
+              }
+          }
+          // flag=true;
+          break;
+        }
+        //no marks shows question unattempted
     }
   }, [options, props.correct_answer]);
-
+useEffect(()=>{
+  console.log(props.pair)
+},[])
   useEffect(() => {
-    for (let i = 0; i < options.length; i++) {
-      if (options[i] === props.submitted_answer) {
-        setSubmittedBtn((i + 1).toString());
-      }
+  
+    let flag=false;
+    for (let i = 0; i < (props.pair).length; i++) {
+      const ques=(props.pair)[i].question;
+      const sans=(props.pair)[i].sans;
+      // console.log(ques)
+      if(ques==props.question)
+        {
+          for(let j=0;j<options.length;j++)
+          {
+            if (options[j] === sans) {
+                setSubmittedBtn((j + 1).toString());
+              }
+          }
+          flag=true;
+          break;
+        }
     }
+    // if(flag===false)
+    // {
+
+    // }
+
   }, [options, props.submitted_answer]);
 
   return (
