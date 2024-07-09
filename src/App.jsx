@@ -4,14 +4,15 @@ import Page2 from "./Page2";
 import Page3 from "./Page3";
 export default function App() {
   //state and function to store submitted answers
-  const [pair, set_pair] = React.useState([]);
-  function store_pair(e,sans) {
-    set_pair((prev) => {
-      return [...prev,
-         {
-          question:e,
-          sans:sans
-        }];
+  const [sans, set_sans] = React.useState([]);
+  const [cnt_pairs,set_cnt_pairs]=React.useState(0);
+  let val;
+
+  //score state
+
+  function store_sans(e) {
+    set_sans((prev) => {
+      return [...prev, e];
     });
   }
 
@@ -20,8 +21,8 @@ export default function App() {
   function update_score() {
     setscore((prev) => prev + 1);
   }
-  
-  // state and function to store all options
+
+  // state and function to store options
   const [choices, set_choices] = React.useState([]);
   function store_choices(e)
   {
@@ -31,10 +32,8 @@ export default function App() {
       }
     );
   }
-
   //state and function to store all the questions fetched
   const [fques, set_fques] = React.useState([]);
-
   function store_fques(e) {
     set_fques((prev) => {
       return [...prev, e];
@@ -50,7 +49,42 @@ export default function App() {
     });
   }
 
+  //state and function to store all pairs of ques and sans
+  const [pairs, set_pairs] = React.useState([]);
+
+  function store_pairs(e, sans) {
+    set_pairs(prev => {
+      let updatedPairs;
+      if (val >= 10) {
+        updatedPairs = prev.map(ele => 
+          ele.question === e ? { question: e, sans: sans } : ele
+        );
+        // console.log("second");
+      } else {
+        updatedPairs = [...prev, { question: e, sans: sans }];
+        // console.log("first");
+      }
+      return updatedPairs;
+    });
+  
+    set_cnt_pairs(prev => {
+      const newCount = prev + 1;
+      // Log the new value of cnt_pairs
+      setTimeout(() => {
+        val=newCount;
+        // console.log(newCount);
+      }, 0);
+      return newCount;
+    });
+  }
+  
+  
+  
+
+  //state to store all the answers of user
+
   //state and function to store all correct answers
+
   const [cans, set_cans] = React.useState([]);
 
   function store_cans(e) {
@@ -61,6 +95,9 @@ export default function App() {
 
   // Function to restart the quiz on clicking on play again
   function restart() {
+    setFirst(true);
+    setStartQuiz(false);
+    setCheckAnswers(false);
     window.location.reload();
   }
 
@@ -74,6 +111,7 @@ export default function App() {
   function start_quiz() {
     setStartQuiz(true);
     setFirst(false);
+    // console.log("func gets logged");
   }
 
   //function on clicking check ans at page 2  
@@ -85,7 +123,6 @@ export default function App() {
   return (
     <div>
       {first && <Page1 click={start_quiz} />}
-
       {startQuiz && (
         <Page2
           update_score={update_score}
@@ -97,19 +134,22 @@ export default function App() {
           icans={icans}
           store_icans={store_icans}
           cans={cans}
-          store_pair={store_pair}
-          pair={pair}
+          store_sans={store_sans}
+          sans={sans}
+          store_pairs={store_pairs}
+          pairs={pairs}
           choices={choices}
           store_choices={store_choices}
         />
       )}
-
       {checkAnswers && (
         <Page3
           score={score}
-          pair={pair}
+          sans={sans}
           fques={fques}
           cans={cans}
+          store_pairs={store_pairs}
+          pairs={pairs}
           icans={icans}
           restart={restart}
           choices={choices}

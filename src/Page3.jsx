@@ -5,17 +5,21 @@ import P3Ques from "./P3QUES.jsx"
 import Confetti from "react-confetti"
 
 export default function Page3(props){
-    //
+   
     //state to check if score is out of
     const [win,setwin]=React.useState(false)
     if(props.score===10)
         setwin(true)
+    //functon to restart game
 
     //function to call restart function of App component which restarts the game
     function restart()
     {
         props.restart()
     }
+    React.useEffect(()=>{
+        // console.log(props.cans)
+    },[])
 
     //an array storing info about a question (correct ans , incorrect ans , etc.)
     const ques=[]
@@ -27,19 +31,22 @@ export default function Page3(props){
                     incorrect_answers:props.icans[i],
                     correct_answer:props.cans[i],
                     question:props.fques[i],
+                    sans:props.sans[i],
                     choices:props.choices[i]
                 }
             )
-            // console.log(props.sans[i])
         }
+        // console.log(ques)
         const arr = ques.map((e) =>{
              return(
                <P3Ques
                  question={e.question}
                  incorrect_answers={e.incorrect_answers}
                  correct_answer={e.correct_answer}
-                 pair={props.pair}
+                 submitted_answer={e.sans}
                  choices={e.choices}
+                 store_pairs={props.store_pairs}
+          pairs={props.pairs}
                />
              )
            } );
@@ -54,5 +61,4 @@ export default function Page3(props){
             </div>
             </div>
     )
-
 }

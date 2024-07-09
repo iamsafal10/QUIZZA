@@ -1,7 +1,6 @@
 import React from "react";
 import { decode } from "html-entities";
 import Ans from "./ANS"
-
 export default function Ques(props) {
   const [options, setOptions] = React.useState([]);
 
@@ -17,20 +16,27 @@ export default function Ques(props) {
       ];
     }
     // console.log(array)
-    props.store_choices(array)
+    return array
+    
   }
 
 // to store shuffled options
   React.useEffect(() => {
     // Create a copy of the options array before shuffling
     const shuffledOptions = [...props.incorrect_answers, props.correct_answer];
-    shuffle(shuffledOptions);
-    setOptions(shuffledOptions);
-  }, [props.incorrect_answers, props.correct_answer]);
+    // console.log(shuffledOptions)
+    const right_options=shuffle(shuffledOptions);
+    // shuffle(shuffledOptions);
+    setOptions(right_options);
+    props.store_choices(right_options)
+
+    // console.log(options)
+  }, []);
 
   const cans = [];
   cans.push(props.correct_answer);
 
+  //checking wwhich button is selected by id
   //checking which button is selected by id
 const [selectedbtn,setselectedbtn]=React.useState(null)
 
@@ -38,18 +44,13 @@ const [selectedbtn,setselectedbtn]=React.useState(null)
   const [id2, setid2] = React.useState("false");
   const [id3, setid3] = React.useState("false");
   const [id4, setid4] = React.useState("false");
-
   function check_option(event) {
     const { id, value } = event.target;
 
-    // storing submitted answer
-    const ques=decode(props.question)
-    props.store_pair(ques,value)
-    // for(let i=0;i<2;i++)
-    // {
-    //   console.log((props.pair))
-    // }
+    props.store_pairs(decode(props.question),value)
 
+    // storing submitted answer
+    props.store_sans(value)
     if (value === cans[0]) {
      props.update_score()
       console.log("Correct answer selected");
@@ -75,6 +76,7 @@ const [selectedbtn,setselectedbtn]=React.useState(null)
         </button>
       </div>
       <div className="line"></div>
+      {/* <Ans value={score}/> */}
     </div>
   );
 }

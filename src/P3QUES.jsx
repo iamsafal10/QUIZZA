@@ -5,68 +5,58 @@ export default function P3Ques(props) {
   const [options, setOptions] = useState([]);
   const [correctBtn, setCorrectBtn] = useState(null);
   const [submittedBtn, setSubmittedBtn] = useState(null);
- 
+  const [leftBtn, setleftBtn] = useState(null);
+  console.log(props.pairs)
   useEffect(() => {
-    setOptions(props.choices);
-   
+    setOptions(props.choices.map(choice => decode(choice)));
   }, [props.choices]);
-
-  useEffect(()=>{
-    console.log(props.question)
-    console.log(props.incorrect_answers)
-    console.log(props.correct_answer)
-    console.log(props.choices)
-
-  },[])
-  useEffect(() => {
-    for (let i = 0; i < (props.pair).length; i++) {
-      const ques=(props.pair)[i].question;
-      const sans=(props.pair)[i].sans;
-      // console.log(ques)
-      if(ques==props.question)
-        {
-          for(let j=0;j<options.length;j++)
-          {
-            if (options[j] === props.correct_answer && (sans!="")) 
-              {
-                setCorrectBtn((j + 1).toString());
-              }
-          }
-          // flag=true;
-          break;
-        }
-        //no marks shows question unattempted
-    }
-  }, [options, props.correct_answer]);
+//khud se likha
 useEffect(()=>{
-  console.log(props.pair)
-},[])
-  useEffect(() => {
-  
-    let flag=false;
-    for (let i = 0; i < (props.pair).length; i++) {
-      const ques=(props.pair)[i].question;
-      const sans=(props.pair)[i].sans;
-      // console.log(ques)
-      if(ques==props.question)
-        {
-          for(let j=0;j<options.length;j++)
-          {
-            if (options[j] === sans) {
-                setSubmittedBtn((j + 1).toString());
-              }
-          }
-          flag=true;
-          break;
-        }
+  for(let i=0;i<10;i++)
+{
+  const ques=decode((props.pairs[i]).question);
+  if(decode(props.question)===ques)
+  {
+    const sans=decode((props.pairs[i]).sans);
+    if(sans!=""){
+    for (let j = 0; j < options.length; j++) {
+      if (options[j] === sans) {
+        setSubmittedBtn((j + 1).toString());
+      }
+      if (options[j] === props.correct_answer) {
+        setCorrectBtn((j + 1).toString());
+      }
     }
-    // if(flag===false)
-    // {
+  }
+  else
+  {
+    for (let j = 0; j < options.length; j++) {
+      if (options[j] === props.correct_answer) {
+        setleftBtn((j + 1).toString());
+      }
+    }
+  }
+  }
+}},[props.pairs, props.question, options, props.correct_answer])
 
-    // }
+//yahan tak
+//actual starts
+  // useEffect(() => {
+  //   for (let i = 0; i < options.length; i++) {
+  //     if (options[i] === props.correct_answer) {
+  //       setCorrectBtn((i + 1).toString());
+  //     }
+  //   }
+  // }, [options, props.correct_answer]);
 
-  }, [options, props.submitted_answer]);
-
+  // useEffect(() => {
+  //   for (let i = 0; i < options.length; i++) {
+  //     if (options[i] === props.submitted_answer) {
+  //       setSubmittedBtn((i + 1).toString());
+  //     }
+  //   }
+  // }, [options, props.submitted_answer]);
+//actual ends
   return (
     <div className="ques">
       <h1 className="question">{decode(props.question)}</h1>
@@ -74,11 +64,16 @@ useEffect(()=>{
         {options.map((option, index) => {
           const btnId = (index + 1).toString();
           let className = "";
-          if (btnId === correctBtn) {
+          if(btnId===leftBtn)
+          {
+            className="blue";
+          }
+          else if (btnId === correctBtn) {
             className = "green";
           } else if (btnId === submittedBtn) {
             className = "red";
           }
+         
           return (
             <button
               key={index}
