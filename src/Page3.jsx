@@ -51,12 +51,12 @@ export default function Page3(props){
              )
            } );
     return(
-        <div className="page3">
+        <div className="page3 tablet:w-96 laptop:w-4/5 mobile:w-28">
             {arr}
             {/* {win && <Confetti/>} */}
-            <div className="display">
+            <div className="display mobile:ml-98 tablet:ml-97 laptop:ml-96">
                 You have submitted {props.score} correct answers 
-            <button onClick={restart} className="play_again">Play Again!!
+            <button onClick={restart} className="play_again mobile:pl-5 mobile:w-1/5  tablet:w-1/5 mobile:flex-row mobile:content-center">Play Again!!
       </button>
             </div>
             </div>

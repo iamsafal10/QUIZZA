@@ -60,7 +60,7 @@ const [selectedbtn,setselectedbtn]=React.useState(null)
   }
   return (
     <div className="ques">
-      <h1 className="question">{decode(props.question)}</h1>
+      <h1 className="question mobile:min-w-96">{decode(props.question)}</h1>
       <div className="options">
         <button onClick={check_option} id="1" className={selectedbtn==="1"?"selected":""} value={decode(options[0])}>
           {decode(options[0])}

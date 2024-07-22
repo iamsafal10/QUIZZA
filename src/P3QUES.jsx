@@ -58,8 +58,8 @@ useEffect(()=>{
   // }, [options, props.submitted_answer]);
 //actual ends
   return (
-    <div className="ques">
-      <h1 className="question">{decode(props.question)}</h1>
+    <div className="ques desktop:ml-96 laptop:ml-96 mobile:max-w-100 mobile:ml-98 tablet:ml-97 ">
+      <h1 className="question mobile:min-w-96 ">{decode(props.question)}</h1>
       <div className="options">
         {options.map((option, index) => {
           const btnId = (index + 1).toString();

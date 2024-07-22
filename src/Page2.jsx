@@ -64,8 +64,11 @@ export default function Page2(props) {
     <div className="page2">
       {loading?(<div className="loading"><img className="img" src="Hourglass.gif" alt="loading gif"/>
       <div className="written">LOADING...</div></div>):
-      (<div className="unloading"><div className="questions">{array}</div>
-      <div className="check_button"><button onClick={props.check_ans} className="check_answers">
+      (<div className="unloading"><div className="questions tablet:w-96 laptop:w-4/5 mobile:w-36 mobile:ml-90" >{array}</div>
+      <div className="check_button">
+        <button onClick={props.check_ans} className="check_answers
+        tablet:w-3/5 laptop:w-1/5 desktop:w-1/5 laptop:ml-84 desktop:ml-80 
+        mobile:ml-95 laptop:ml-80 mobile:w-36">
         Check Answers
       </button></div>
       </div>)}
